@@ -1,11 +1,11 @@
-def syl(word, debug=False):#a word is a string containing ONLY alphabetical characters
-    vow = 'a e i o u y'.split(' ')
-    syl = 0
+def countSyllables(word, debug=False):#a word is a string containing ONLY alphabetical characters
+    vowels = 'a e i o u y'.split(' ')
+    totalSyllables = 0
     for i in range(len(word)):
         if(debug):
             print(word[i]+":")
         
-        if(word[i] in vow):
+        if(word[i] in vowels):
             if(debug):
                 print("    is a vowel")
             
@@ -13,19 +13,19 @@ def syl(word, debug=False):#a word is a string containing ONLY alphabetical char
                 if(debug):
                     print("    not last letter")
                 
-                if(word[i+1] in vow):
+                if(word[i+1] in vowels):
                     if(debug):
                         print("    next letter is vowel")
                 else:
                     if(debug):
                         print("    next letter is not vowel")
                         print("    ADD SYL")
-                    syl+=1
+                    totalSyllables+=1
             else:
                 if(debug):
                     print("    last letter")
                     print("    ADD SYL")
-                syl+=1
+                totalSyllables+=1
             
             
-    return(syl)
+    return(totalSyllables)
