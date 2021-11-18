@@ -1,24 +1,30 @@
-def syl(word):#a word is a string containing ONLY alphabetical characters
+def syl(word, debug=False):#a word is a string containing ONLY alphabetical characters
     vow = 'a e i o u y'.split(' ')
     syl = 0
     for i in range(len(word)):
-        print(word[i]+":")
+        if(debug):
+            print(word[i]+":")
         
         if(word[i] in vow):
-            print("    is a vowel")
+            if(debug):
+                print("    is a vowel")
             
             if(i<len(word)-1):
-                print("    not last letter")
+                if(debug):
+                    print("    not last letter")
                 
                 if(word[i+1] in vow):
-                    print("    next letter is vowel")
+                    if(debug):
+                        print("    next letter is vowel")
                 else:
-                    print("    next letter is not vowel")
-                    print("    ADD SYL")
+                    if(debug):
+                        print("    next letter is not vowel")
+                        print("    ADD SYL")
                     syl+=1
             else:
-                print("    last letter")
-                print("    ADD SYL")
+                if(debug):
+                    print("    last letter")
+                    print("    ADD SYL")
                 syl+=1
             
             
