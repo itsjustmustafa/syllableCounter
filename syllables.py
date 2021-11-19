@@ -1,4 +1,6 @@
 def countSyllables(word, debug=False):#a word is a string containing ONLY alphabetical characters
+    if not word.isalpha():
+        return 0
     vowels = 'a e i o u y'.split(' ')
     totalSyllables = 0
     for i in range(len(word)):
