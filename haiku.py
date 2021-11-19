@@ -11,7 +11,7 @@ def removePunct(sentence):
 
 # Checks whether a sentence (String) follows a syllabic structure (int list), eg. structure = [5, 7, 5] for a haiku
 # a sentence follows a syllabic strucuture if it can be partitioned by words such that the nth partition has a total syllable count of the nth strucure value
-def checkSyllabicStructure(sentence, structure):
+def checkSyllabicStructure(sentence, structure, debug=False):
     words = re.split("\\b", removePunct(sentence))
     
     currentSyllabicStructure = [0 for i in structure]
@@ -22,10 +22,12 @@ def checkSyllabicStructure(sentence, structure):
     for wordIndex in range(len(words)):
         word = words[wordIndex]
         
-        #print("current word: {}".format(word))
+        if(debug):
+            print("current word: {}".format(word))
         
         if syllabicIndex >= len(structure):
-            #print("index too large")
+            if(debug):
+                print("index too large")
             return badOutput
         
         currSyllables = countSyllables(word)
@@ -34,28 +36,34 @@ def checkSyllabicStructure(sentence, structure):
         if  currSyllables + currentSyllabicStructure[syllabicIndex] <= structure[syllabicIndex]:
             syllabicWordIndex[syllabicIndex].append(wordIndex)
             currentSyllabicStructure[syllabicIndex] += currSyllables
-            #print("able to be fit")
-            #print("new syllabicWordIndex: {}".format(syllabicWordIndex))
-            #print("new currentSyllabicStructure: {}".format(currentSyllabicStructure))
+            if(debug):
+                print("able to be fit")
+                print("new syllabicWordIndex: {}".format(syllabicWordIndex))
+                print("new currentSyllabicStructure: {}".format(currentSyllabicStructure))
         else: # current word too big for current group
             #check if this is the final group
             if syllabicIndex >= len(structure)-1:
-                #print("no next group to place word in")
+                if(debug):
+                    print("no next group to place word in")
                 return badOutput
             elif currentSyllabicStructure[syllabicIndex] < structure[syllabicIndex]: #check if current group is not fulfilled
-                #print("last group not fullfilled")
+                if(debug):
+                    print("last group not fullfilled")
                 return badOutput
-            elif currSyllables >= structure[syllabicIndex + 1]:# check if current word is too big for next group
-                #print("current word too big for next group")
+            elif currSyllables > structure[syllabicIndex + 1]:# check if current word is too big for next group
+                if(debug):
+                    print("current word too big for next group")
                 return badOutput
             else: # Everything seems fine
-                #print("word added to next index")
+                if(debug):
+                    print("word added to next index")
                 syllabicIndex += 1
                 #print("new syllabicIndex: {}".format(syllabicIndex))
                 syllabicWordIndex[syllabicIndex].append(wordIndex)
                 currentSyllabicStructure[syllabicIndex] += currSyllables
     
-    #print(syllabicWordIndex)
+    if(debug):
+        print(syllabicWordIndex)
     if currentSyllabicStructure != structure:
         return badOutput
     else:
