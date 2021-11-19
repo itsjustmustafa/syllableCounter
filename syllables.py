@@ -3,6 +3,7 @@ def countSyllables(word, debug=False):#a word is a string containing ONLY alphab
         return 0
     vowels = 'a e i o u y'.split(' ')
     totalSyllables = 0
+    word = word.lower()
     for i in range(len(word)):
         if(debug):
             print(word[i]+":")
